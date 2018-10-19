@@ -1,0 +1,40 @@
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8094
+
+spring:
+  application:
+    name: zuul-eureka
+#zuul
+zuul:
+  routes:
+    gzmi:
+      path: /gt/**
+      serviceId: eureka-provider
+
+#zuul:
+#  routes:
+#    eureka-provider: /gt/**
+#  ignored-patterns:
+#    - /eureka-provider/getString
+#    - /gt/getString
+
+#getway
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: xujin_route
+#        uri: http://baidu.com:80/
+#        predicates:
+#        - Path=/baidu
+
+
+
+
+

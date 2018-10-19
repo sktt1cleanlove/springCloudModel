@@ -1,0 +1,57 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: eureka-consume
+  zipkin:
+    base-url: http://192.168.0.113:9411/
+    locator:
+      discovery:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
+    web:
+      skip-pattern: (^cleanup.*|.+favicon.*)
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+#      熔断
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecons: 1000
+#            这里是为（getConfigHystrix方法单独设置熔断器）
+    getConfigHystrix:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecons: 3000
+#fegin
+feign:
+  hystrix:
+    enabled: true
+
+#    默认其实的切入点是：/actuator/hystrix.stream。要改成/hystrix.stream
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+base-path: /
+
+
+#logger
+logging:
+  level:
+   org.springframework.cloud.netflix.feign: debug
+
+
+
+
+
+
